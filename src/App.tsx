@@ -81,7 +81,7 @@ export default function App() {
             template_params: {
               to_email: normalizedEmail,
               subscriber_email: normalizedEmail,
-              product_name: "Édition 01 — Voyage Chromatique",
+              product_name: "Louis Vuitton Keepall Multicolore (pieza de reventa)",
               access_url: window.location.href.split("#")[0],
             },
           }),
@@ -204,7 +204,7 @@ export default function App() {
 
         <div
           className="visual-wrap"
-          aria-label="Bolso Voyage Chromatique de edición limitada"
+          aria-label="Louis Vuitton Keepall Multicolore, pieza de reventa"
         >
           <img
             className="monogram-backdrop"
@@ -231,16 +231,16 @@ export default function App() {
           </div>
           <figure className="product-frame">
             <img
-              src={`${import.meta.env.BASE_URL}images/edition-01-bag.svg`}
-              alt="Ilustración de bolso de viaje color crema con estampado geométrico multicolor y acabados de cuero natural"
+              src={`${import.meta.env.BASE_URL}images/edition-01-bag.webp`}
+              alt="Bolso de viaje Louis Vuitton Keepall Multicolore, pieza de reventa"
             />
             <span className="product-shine" aria-hidden="true" />
           </figure>
           <div className="caption-card">
-            <p>THE ARCHIVE SERIES</p>
+            <p>PIEZA DE REVENTA</p>
             <div>
-              <strong>Voyage Chromatique</strong>
-              <span>Cuero natural · Estampado multicolor</span>
+              <strong>Louis Vuitton Keepall Multicolore</strong>
+              <span>Lona multicolor · Cuero natural · Herrajes dorados</span>
             </div>
           </div>
         </div>
@@ -351,7 +351,7 @@ export default function App() {
           MAISON <span>ÉLAN</span>
         </a>
         <p>El viaje es color. La edición, irrepetible.</p>
-        <p>© {new Date().getFullYear()} Maison Élan · Marca ficticia para un ejercicio académico</p>
+        <p>© {new Date().getFullYear()} Maison Élan · Tienda independiente de reventa, no afiliada con Louis Vuitton</p>
       </footer>
     </main>
   )
