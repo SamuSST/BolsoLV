@@ -1,10 +1,12 @@
 {
-  "description": "Discover limited-edition bags, join the subscriber waitlist for exclusive access, and receive special discounts and updates by email.",
+  "description": "Lista privada para la edición limitada Voyage Chromatique de Maison Élan (marca ficticia, ejercicio académico).",
   "robots": {
     "index": false
   },
   "accessibility": {
     "addBypassLinks": false,
     "ignoreReducedMotion": false
-  }
+  },
+  "title": "Maison Élan · Edición limitada",
+  "language": "es"
 }
