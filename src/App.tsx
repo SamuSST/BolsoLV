@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 
 type FormStatus = "idle" | "loading" | "success" | "error"
 
@@ -25,6 +25,25 @@ export default function App() {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<FormStatus>("idle")
   const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    const animatedElements =
+      document.querySelectorAll<HTMLElement>("[data-reveal]")
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.18 },
+    )
+
+    animatedElements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -100,6 +119,12 @@ export default function App() {
       </nav>
 
       <section className="hero" id="inicio">
+        <div className="color-orbits" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
         <div className="hero-copy">
           <div className="eyebrow">
             <span />
@@ -206,6 +231,7 @@ export default function App() {
               src="/images/edition-01-bag.webp"
               alt="Bolso de viaje blanco con monograma multicolor y acabados de cuero natural"
             />
+            <span className="product-shine" aria-hidden="true" />
           </figure>
           <div className="caption-card">
             <p>THE ARCHIVE SERIES</p>
@@ -217,7 +243,11 @@ export default function App() {
         </div>
       </section>
 
-      <div className="monogram-ribbon" aria-hidden="true">
+      <div
+        className="monogram-ribbon reveal-section"
+        aria-hidden="true"
+        data-reveal
+      >
         <div className="ribbon-pattern" />
         <div className="ribbon-copy">
           <span>Edición limitada</span>
@@ -231,11 +261,58 @@ export default function App() {
       </div>
 
       <section
+        className="kinetic-stage reveal-section"
+        aria-label="Colección Color en movimiento"
+        data-reveal
+      >
+        <div className="kinetic-copy">
+          <p>THE ART OF TRAVEL · CAPSULE 01</p>
+          <h2>
+            Color en
+            <br />
+            <em>movimiento.</em>
+          </h2>
+          <span>
+            Tres códigos visuales. Una pieza que no pasa desapercibida.
+          </span>
+        </div>
+
+        <div className="pattern-deck" aria-hidden="true">
+          <figure className="pattern-card pattern-card-denim">
+            <img src="/images/denim-monogram.webp" alt="" />
+            <figcaption>DENIM ARCHIVE</figcaption>
+          </figure>
+          <figure className="pattern-card pattern-card-chain">
+            <img src="/images/chain-monogram.webp" alt="" />
+            <figcaption>TRUNKS &amp; CHAINS</figcaption>
+          </figure>
+          <figure className="pattern-card pattern-card-color">
+            <img src="/images/monogram-pattern.webp" alt="" />
+            <figcaption>COLOR ICONS</figcaption>
+          </figure>
+        </div>
+
+        <div className="kinetic-seal" aria-hidden="true">
+          <div className="seal-ring">
+            <span>LIMITED · PRIVATE · NUMBERED · </span>
+          </div>
+          <strong>LV</strong>
+        </div>
+      </section>
+
+      <div className="type-marquee" aria-hidden="true">
+        <div className="type-track">
+          <span>VOYAGE CHROMATIQUE · COLOR IS THE SIGNATURE · </span>
+          <span>VOYAGE CHROMATIQUE · COLOR IS THE SIGNATURE · </span>
+        </div>
+      </div>
+
+      <section
         className="benefits"
         id="edicion"
         aria-label="Beneficios de la lista privada"
       >
-        <article>
+        <article className="reveal-card" data-reveal>
           <span className="benefit-number">01</span>
           <div>
             <h2>Acceso anticipado</h2>
@@ -245,7 +322,7 @@ export default function App() {
             </p>
           </div>
         </article>
-        <article>
+        <article className="reveal-card" data-reveal>
           <span className="benefit-number">02</span>
           <div>
             <h2>Ediciones numeradas</h2>
@@ -255,7 +332,7 @@ export default function App() {
             </p>
           </div>
         </article>
-        <article>
+        <article className="reveal-card" data-reveal>
           <span className="benefit-number">03</span>
           <div>
             <h2>Beneficios privados</h2>
@@ -266,7 +343,7 @@ export default function App() {
         </article>
       </section>
 
-      <footer>
+      <footer className="reveal-section" data-reveal>
         <a className="wordmark footer-mark" href="#inicio">
           LOUIS <span>VUITTON</span>
         </a>
