@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react"
+import { EMAILJS } from "./emailjs.config"
 
 type FormStatus = "idle" | "loading" | "success" | "error"
 
@@ -58,11 +59,10 @@ export default function App() {
     setStatus("loading")
     setMessage("")
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    const { serviceId, templateId, publicKey } = EMAILJS
 
-    if (!serviceId || !templateId || !publicKey) {
+    if ([serviceId, templateId, publicKey].some((v) => !v || v.startsWith("TU_"))) {
+      console.error("Faltan credenciales de EmailJS en src/emailjs.config.ts")
       setStatus("error")
       setMessage("La lista privada no está disponible por el momento.")
       return
@@ -82,18 +82,21 @@ export default function App() {
               to_email: normalizedEmail,
               subscriber_email: normalizedEmail,
               product_name: "Édition 01 — Voyage Chromatique",
-              access_url: window.location.origin,
+              access_url: window.location.href.split("#")[0],
             },
           }),
         },
       )
 
-      if (!response.ok) throw new Error("EmailJS request failed")
+      if (!response.ok) {
+        throw new Error(`EmailJS ${response.status}: ${await response.text()}`)
+      }
 
       setStatus("success")
       setMessage("Revisa tu bandeja de entrada para confirmar tu acceso.")
       setEmail("")
-    } catch {
+    } catch (error) {
+      console.error(error)
       setStatus("error")
       setMessage("No pudimos registrar tu correo. Inténtalo de nuevo.")
     }
@@ -105,9 +108,9 @@ export default function App() {
         <a
           className="wordmark"
           href="#inicio"
-          aria-label="Louis Vuitton, inicio"
+          aria-label="Maison Élan, inicio"
         >
-          LOUIS <span>VUITTON</span>
+          MAISON <span>ÉLAN</span>
         </a>
         <div className="nav-links">
           <a href="#edicion">La edición</a>
@@ -205,19 +208,19 @@ export default function App() {
         >
           <img
             className="monogram-backdrop"
-            src="/images/monogram-pattern.webp"
+            src={`${import.meta.env.BASE_URL}images/pattern-color.svg`}
             alt=""
             aria-hidden="true"
           />
           <img
             className="denim-backdrop"
-            src="/images/denim-monogram.webp"
+            src={`${import.meta.env.BASE_URL}images/pattern-denim.svg`}
             alt=""
             aria-hidden="true"
           />
           <img
             className="chain-backdrop"
-            src="/images/chain-monogram.webp"
+            src={`${import.meta.env.BASE_URL}images/pattern-chain.svg`}
             alt=""
             aria-hidden="true"
           />
@@ -228,8 +231,8 @@ export default function App() {
           </div>
           <figure className="product-frame">
             <img
-              src="/images/edition-01-bag.webp"
-              alt="Bolso de viaje blanco con monograma multicolor y acabados de cuero natural"
+              src={`${import.meta.env.BASE_URL}images/edition-01-bag.svg`}
+              alt="Ilustración de bolso de viaje color crema con estampado geométrico multicolor y acabados de cuero natural"
             />
             <span className="product-shine" aria-hidden="true" />
           </figure>
@@ -237,7 +240,7 @@ export default function App() {
             <p>THE ARCHIVE SERIES</p>
             <div>
               <strong>Voyage Chromatique</strong>
-              <span>Cuero natural · Monograma multicolor</span>
+              <span>Cuero natural · Estampado multicolor</span>
             </div>
           </div>
         </div>
@@ -279,15 +282,15 @@ export default function App() {
 
         <div className="pattern-deck" aria-hidden="true">
           <figure className="pattern-card pattern-card-denim">
-            <img src="/images/denim-monogram.webp" alt="" />
+            <img src={`${import.meta.env.BASE_URL}images/pattern-denim.svg`} alt="" />
             <figcaption>DENIM ARCHIVE</figcaption>
           </figure>
           <figure className="pattern-card pattern-card-chain">
-            <img src="/images/chain-monogram.webp" alt="" />
+            <img src={`${import.meta.env.BASE_URL}images/pattern-chain.svg`} alt="" />
             <figcaption>TRUNKS &amp; CHAINS</figcaption>
           </figure>
           <figure className="pattern-card pattern-card-color">
-            <img src="/images/monogram-pattern.webp" alt="" />
+            <img src={`${import.meta.env.BASE_URL}images/pattern-color.svg`} alt="" />
             <figcaption>COLOR ICONS</figcaption>
           </figure>
         </div>
@@ -296,7 +299,7 @@ export default function App() {
           <div className="seal-ring">
             <span>LIMITED · PRIVATE · NUMBERED · </span>
           </div>
-          <strong>LV</strong>
+          <strong>MÉ</strong>
         </div>
       </section>
 
@@ -345,10 +348,10 @@ export default function App() {
 
       <footer className="reveal-section" data-reveal>
         <a className="wordmark footer-mark" href="#inicio">
-          LOUIS <span>VUITTON</span>
+          MAISON <span>ÉLAN</span>
         </a>
         <p>El viaje es color. La edición, irrepetible.</p>
-        <p>© {new Date().getFullYear()} Louis Vuitton</p>
+        <p>© {new Date().getFullYear()} Maison Élan · Marca ficticia para un ejercicio académico</p>
       </footer>
     </main>
   )
