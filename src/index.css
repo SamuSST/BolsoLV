@@ -605,7 +605,7 @@ h1 em {
 .ribbon-pattern {
   position: absolute;
   inset: 0;
-  background-image: url('/images/monogram-pattern.webp');
+  background-image: url('/images/pattern-color.svg');
   background-position: 0 43%;
   background-size: 410px auto;
   opacity: 1;
@@ -661,7 +661,7 @@ h1 em {
   border-bottom: 3px solid #17130f;
   background:
     linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
-    url('/images/monogram-pattern.webp') center 48% / 430px auto;
+    url('/images/pattern-color.svg') center 48% / 430px auto;
 }
 
 .kinetic-stage::before {
