@@ -1,0 +1,10 @@
+{
+  "description": "Discover limited-edition bags, join the subscriber waitlist for exclusive access, and receive special discounts and updates by email.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
